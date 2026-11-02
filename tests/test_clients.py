@@ -82,3 +82,18 @@ def test_http_error_raises_with_gnani_message_and_is_not_cached(monkeypatch, api
     with pytest.raises(RuntimeError, match="INVALID_FORMAT"):
         clients.transcribe(wav)
     assert list((tmp_path / "stt").glob("*")) == []      # nothing saved
+
+def test_http_error_keeps_status_code_and_shortens_html_pages(monkeypatch, api, wav):
+    html = "<!DOCTYPE html><html><head><title>vachana.ai | 504: Gateway time-out</title></head></html>"
+
+    def gateway_post(url, **kwargs):
+        r = FakeResponse(504)
+        r.text = html
+        return r
+
+    monkeypatch.setattr(clients.requests, "post", gateway_post)
+    with pytest.raises(clients.ApiError) as info:
+        clients.transcribe(wav)
+    assert info.value.status == 504
+    assert "504: Gateway time-out" in str(info.value)
+    assert "<html" not in str(info.value)

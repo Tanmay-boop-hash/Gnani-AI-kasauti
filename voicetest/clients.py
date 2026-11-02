@@ -1,4 +1,4 @@
-import hashlib, json, os
+import hashlib, json, os, re
 from pathlib import Path
 import requests
 from dotenv import load_dotenv
@@ -12,10 +12,27 @@ def _headers():
     return {"X-API-Key-ID": os.environ["GNANI_API_KEY"]}
 
 
+class ApiError(RuntimeError):
+    """An HTTP error from Gnani. Keeps the status code so callers can decide
+    whether retrying makes sense (429/5xx) or not (400-type mistakes)."""
+
+    def __init__(self, status: int, body: str):
+        self.status = status
+        super().__init__(f"HTTP {status}: {_short(body)}")
+
+
+def _short(body: str) -> str:
+    """JSON error bodies are short and useful. Gateway errors come back as a
+    whole HTML page, so just show its <title>."""
+    if "<html" in body.lower():
+        m = re.search(r"<title>(.*?)</title>", body, re.I | re.S)
+        return f"(gateway error page) {m.group(1).strip() if m else 'no title'}"
+    return body[:300]
+
+
 def _check(r):
-    """Raise with Gnani's own error text, not just 'HTTP 400'."""
     if r.status_code >= 400:
-        raise RuntimeError(f"HTTP {r.status_code}: {r.text[:500]}")
+        raise ApiError(r.status_code, r.text)
 
 
 def synthesize(text, voice="Shivani", language="hi-IN",
