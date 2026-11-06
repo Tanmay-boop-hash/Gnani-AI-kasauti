@@ -5,6 +5,8 @@ from collections import Counter
 import requests
 
 from voicetest.cases import CASES, judge
+from voicetest.generate import generate
+CASES = generate(0)
 from voicetest.clients import ApiError, synthesize, transcribe
 from voicetest.degrade import degrade
 
