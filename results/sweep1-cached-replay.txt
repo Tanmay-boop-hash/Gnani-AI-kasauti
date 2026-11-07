@@ -1,0 +1,70 @@
+seed 0  phone-digits
+seed 0  phone-words
+seed 0  pin-digits
+seed 0  pin-words
+seed 0  amount-words
+seed 0  amount-symbol
+seed 0  amount-hazaar
+seed 0  time-half
+seed 0  time-evening
+seed 0  acct-hinglish
+
+condition      prisma-v2.5   prisma-v3.0
+clean                10/10         10/10
+phone                10/10         10/10
+phone+20dB           10/10         10/10
+phone+10dB            9/10         10/10
+phone+5dB             8/10          7/10
+phone+0dB             8/10          5/10
+
+HOW THEY FAILED (condition, model, kind: count)
+  phone+0dB    prisma-v2.5  length_mismatch  1
+  phone+0dB    prisma-v2.5  substitution     1
+  phone+0dB    prisma-v3.0  length_mismatch  2
+  phone+0dB    prisma-v3.0  not_found        1
+  phone+0dB    prisma-v3.0  substitution     2
+  phone+10dB   prisma-v2.5  substitution     1
+  phone+5dB    prisma-v2.5  length_mismatch  1
+  phone+5dB    prisma-v2.5  substitution     1
+  phone+5dB    prisma-v3.0  length_mismatch  2
+  phone+5dB    prisma-v3.0  substitution     1
+
+FAILED / TOTAL BY SENTENCE TYPE (all conditions above pooled)
+  type               prisma-v2.5   prisma-v3.0
+  acct-hinglish              0/6           0/6
+  amount-hazaar              0/6           0/6
+  amount-symbol              0/6           0/6
+  amount-words               0/6           0/6
+  phone-digits               3/6           2/6
+  phone-words                0/6           2/6
+  pin-digits                 2/6           2/6
+  pin-words                  0/6           1/6
+  time-evening               0/6           0/6
+  time-half                  0/6           1/6
+
+PAIRED COMPARISON (same sentence, same noisy clip, both models)
+  condition     both ok  only 2.5  only 3.0  both fail       p
+  clean              10         0         0          0   1.000
+  phone              10         0         0          0   1.000
+  phone+20dB         10         0         0          0   1.000
+  phone+10dB          9         0         1          0   1.000
+  phone+5dB           7         1         0          2   1.000
+  phone+0dB           5         3         0          2   0.250
+  ALL                51         4         1          4   0.375
+
+ALL FAILURES (13)
+  s0 phone+10dB   prisma-v2.5  phone-digits           substitution     मेरा नंबर 9876573210 है।
+  s0 phone+5dB    prisma-v2.5  phone-digits           substitution     मेरा नंबर 9876573210 है।
+  s0 phone+5dB    prisma-v3.0  phone-digits           substitution     मेरा नंबर 9876573210 है।
+  s0 phone+0dB    prisma-v2.5  phone-digits           substitution     मेरा नंबर 9876573210 है
+  s0 phone+0dB    prisma-v3.0  phone-digits           substitution     मेरा नंबर 9876573212 है।
+  s0 phone+5dB    prisma-v3.0  phone-words            length_mismatch  मेरा नंबर 987654310 है।
+  s0 phone+0dB    prisma-v3.0  phone-words            substitution     मेरा नंबर 9876546212 है।
+  s0 phone+5dB    prisma-v2.5  pin-digits             length_mismatch  मेरा पिन कोड 4 0 0 0 7 है।
+  s0 phone+5dB    prisma-v3.0  pin-digits             length_mismatch  मेरा पिन कोड 40007 है।
+  s0 phone+0dB    prisma-v2.5  pin-digits             length_mismatch  मेरा पिन कोड 4 0 0 0 7 है।
+  s0 phone+0dB    prisma-v3.0  pin-digits             length_mismatch  मेरा पिन कोड 40007 है।
+  s0 phone+0dB    prisma-v3.0  pin-words              length_mismatch  मेरा पिन कोड 40007 है।
+  s0 phone+0dB    prisma-v3.0  time-half              not_found        सुबह साढ़े 9 बजे मिलते हैं।
+
+API ERRORS (not counted as passes): 0

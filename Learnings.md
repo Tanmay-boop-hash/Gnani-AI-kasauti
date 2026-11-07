@@ -245,6 +245,18 @@ FIRST 20 FAILURES
 - Every noise failure is a digit string (phone, PIN, account). Amounts (10 sentences) and times (6) never failed under noise. A hypothesis, untested: “five lakh rupees” is a common phrase the model can guess from context, while random digits have nothing to guess from.
 - Ranking, three runs: v3.0 is behind at 0 dB by raw counts every time (5/10 vs 8/10, 32/40 vs 36/40, 36/46 vs 41/46). These are not three independent confirmations, because the 46 contains the 40 and the noise seed is the same. A 5-sentence gap on 46 is within what chance could produce, though I haven’t run a formal test. At 0 dB, 9 of v3.0’s 10 failures are substitutions (a full-length but wrong string), against 3 of v2.5’s 5. That is suggestive only; the digit-level analysis will show whether it’s real.
 
+### Multi-sweep run
+
+Headline
+	      v2.5	 v3.0	   paired result
+10 dB	133/138	134/138	2 vs 3 disagreements, p = 1.0
+5 dB	133/138	129/138	6 vs 2, p = 0.29
+0 dB	126/138 (91%)	109/138 (79%)	19 vs 2, p ≈ 0.0002
+
+- Identical wrong output at every SNR in both models suggests a TTS-side or repeated-digit problem, so a clean baseline is needed for every seed.
+- Failure rate rises with digit-string length (hypothesis).
+- v3.0 writes N लाख, a comparer format miss.
+
 ---
 
 ## 3. Bugs encountered

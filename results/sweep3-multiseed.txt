@@ -1,0 +1,251 @@
+seed 0  phone-digits-s0-01
+seed 0  phone-digits-s0-02
+seed 0  phone-digits-s0-03
+seed 0  phone-digits-s0-04
+seed 0  phone-digits-s0-05
+seed 0  phone-digits-s0-06
+seed 0  phone-words-s0-01
+seed 0  phone-words-s0-02
+seed 0  phone-words-s0-03
+seed 0  phone-words-s0-04
+seed 0  phone-words-s0-05
+seed 0  phone-words-s0-06
+seed 0  pin-digits-s0-01
+seed 0  pin-digits-s0-02
+seed 0  pin-digits-s0-03
+seed 0  pin-digits-s0-04
+seed 0  pin-digits-s0-05
+seed 0  pin-digits-s0-06
+seed 0  pin-words-s0-01
+seed 0  pin-words-s0-02
+seed 0  pin-words-s0-03
+seed 0  pin-words-s0-04
+seed 0  pin-words-s0-05
+seed 0  pin-words-s0-06
+seed 0  amount-symbol-s0-01
+seed 0  amount-symbol-s0-02
+seed 0  amount-symbol-s0-03
+seed 0  amount-symbol-s0-04
+seed 0  amount-symbol-s0-05
+seed 0  amount-words-s0-01
+seed 0  amount-words-s0-02
+seed 0  amount-words-s0-03
+seed 0  amount-words-s0-04
+seed 0  amount-words-s0-05
+seed 0  time-s0-01
+seed 0  time-s0-02
+seed 0  time-s0-03
+seed 0  time-s0-04
+seed 0  time-s0-05
+seed 0  time-s0-06
+seed 0  acct-hinglish-s0-01
+seed 0  acct-hinglish-s0-02
+seed 0  acct-hinglish-s0-03
+seed 0  acct-hinglish-s0-04
+seed 0  acct-hinglish-s0-05
+seed 0  acct-hinglish-s0-06
+seed 1  phone-digits-s1-01
+seed 1  phone-digits-s1-02
+seed 1  phone-digits-s1-03
+seed 1  phone-digits-s1-04
+seed 1  phone-digits-s1-05
+seed 1  phone-digits-s1-06
+seed 1  phone-words-s1-01
+seed 1  phone-words-s1-02
+seed 1  phone-words-s1-03
+seed 1  phone-words-s1-04
+seed 1  phone-words-s1-05
+seed 1  phone-words-s1-06
+seed 1  pin-digits-s1-01
+seed 1  pin-digits-s1-02
+seed 1  pin-digits-s1-03
+seed 1  pin-digits-s1-04
+seed 1  pin-digits-s1-05
+seed 1  pin-digits-s1-06
+seed 1  pin-words-s1-01
+seed 1  pin-words-s1-02
+seed 1  pin-words-s1-03
+seed 1  pin-words-s1-04
+seed 1  pin-words-s1-05
+seed 1  pin-words-s1-06
+seed 1  amount-symbol-s1-01
+seed 1  amount-symbol-s1-02
+seed 1  amount-symbol-s1-03
+seed 1  amount-symbol-s1-04
+seed 1  amount-symbol-s1-05
+seed 1  amount-words-s1-01
+seed 1  amount-words-s1-02
+seed 1  amount-words-s1-03
+seed 1  amount-words-s1-04
+seed 1  amount-words-s1-05
+seed 1  time-s1-01
+seed 1  time-s1-02
+seed 1  time-s1-03
+seed 1  time-s1-04
+seed 1  time-s1-05
+seed 1  time-s1-06
+seed 1  acct-hinglish-s1-01
+seed 1  acct-hinglish-s1-02
+seed 1  acct-hinglish-s1-03
+seed 1  acct-hinglish-s1-04
+seed 1  acct-hinglish-s1-05
+seed 1  acct-hinglish-s1-06
+seed 2  phone-digits-s2-01
+seed 2  phone-digits-s2-02
+seed 2  phone-digits-s2-03
+seed 2  phone-digits-s2-04
+seed 2  phone-digits-s2-05
+seed 2  phone-digits-s2-06
+seed 2  phone-words-s2-01
+seed 2  phone-words-s2-02
+seed 2  phone-words-s2-03
+seed 2  phone-words-s2-04
+seed 2  phone-words-s2-05
+seed 2  phone-words-s2-06
+seed 2  pin-digits-s2-01
+seed 2  pin-digits-s2-02
+seed 2  pin-digits-s2-03
+seed 2  pin-digits-s2-04
+seed 2  pin-digits-s2-05
+seed 2  pin-digits-s2-06
+seed 2  pin-words-s2-01
+seed 2  pin-words-s2-02
+seed 2  pin-words-s2-03
+seed 2  pin-words-s2-04
+seed 2  pin-words-s2-05
+seed 2  pin-words-s2-06
+seed 2  amount-symbol-s2-01
+seed 2  amount-symbol-s2-02
+seed 2  amount-symbol-s2-03
+seed 2  amount-symbol-s2-04
+seed 2  amount-symbol-s2-05
+seed 2  amount-words-s2-01
+seed 2  amount-words-s2-02
+seed 2  amount-words-s2-03
+seed 2  amount-words-s2-04
+seed 2  amount-words-s2-05
+seed 2  time-s2-01
+seed 2  time-s2-02
+seed 2  time-s2-03
+seed 2  time-s2-04
+seed 2  time-s2-05
+seed 2  time-s2-06
+seed 2  acct-hinglish-s2-01
+seed 2  acct-hinglish-s2-02
+seed 2  acct-hinglish-s2-03
+seed 2  acct-hinglish-s2-04
+seed 2  acct-hinglish-s2-05
+seed 2  acct-hinglish-s2-06
+
+condition      prisma-v2.5   prisma-v3.0
+phone+10dB         133/138       134/138
+phone+5dB          133/138       129/138
+phone+0dB          126/138       109/138
+
+HOW THEY FAILED (condition, model, kind: count)
+  phone+0dB    prisma-v2.5  length_mismatch  7
+  phone+0dB    prisma-v2.5  substitution     5
+  phone+0dB    prisma-v3.0  length_mismatch  10
+  phone+0dB    prisma-v3.0  not_found        1
+  phone+0dB    prisma-v3.0  substitution     15
+  phone+0dB    prisma-v3.0  wrong_value      3
+  phone+10dB   prisma-v2.5  length_mismatch  3
+  phone+10dB   prisma-v2.5  substitution     1
+  phone+10dB   prisma-v2.5  wrong_value      1
+  phone+10dB   prisma-v3.0  length_mismatch  2
+  phone+10dB   prisma-v3.0  not_found        1
+  phone+10dB   prisma-v3.0  substitution     1
+  phone+5dB    prisma-v2.5  length_mismatch  3
+  phone+5dB    prisma-v2.5  substitution     1
+  phone+5dB    prisma-v2.5  wrong_value      1
+  phone+5dB    prisma-v3.0  length_mismatch  5
+  phone+5dB    prisma-v3.0  substitution     3
+  phone+5dB    prisma-v3.0  wrong_value      1
+
+FAILED / TOTAL BY SENTENCE TYPE (all conditions above pooled)
+  type               prisma-v2.5   prisma-v3.0
+  acct-hinglish             4/54          6/54
+  amount-symbol             2/45          1/45
+  amount-words              0/45          4/45
+  phone-digits              8/54         13/54
+  phone-words               4/54         12/54
+  pin-digits                3/54          1/54
+  pin-words                 1/54          4/54
+  time                      0/54          1/54
+
+PAIRED COMPARISON (same sentence, same noisy clip, both models)
+  condition     both ok  only 2.5  only 3.0  both fail       p
+  phone+10dB        131         2         3          2   1.000
+  phone+5dB         127         6         2          3   0.289
+  phone+0dB         107        19         2         10   0.000
+  ALL               365        27         7         15   0.001
+
+ALL FAILURES (64)
+  s0 phone+0dB    prisma-v2.5  phone-digits-s0-01     substitution     मेरा नंबर 9704876475 है
+  s0 phone+0dB    prisma-v3.0  phone-digits-s0-01     substitution     मेरा नंबर 9704876475 है।
+  s0 phone+0dB    prisma-v3.0  phone-digits-s0-04     substitution     मेरा नंबर 8938778708 है।
+  s0 phone+0dB    prisma-v2.5  phone-digits-s0-05     length_mismatch  मेरा नंबर था 160975351
+  s0 phone+0dB    prisma-v3.0  phone-digits-s0-05     length_mismatch  मेरा नंबर था 1 था 0975351।
+  s0 phone+0dB    prisma-v3.0  phone-words-s0-02      substitution     मेरा नंबर 8789659342 है।
+  s0 phone+0dB    prisma-v3.0  phone-words-s0-03      substitution     मेरा नंबर 7209478122 है।
+  s0 phone+0dB    prisma-v3.0  phone-words-s0-05      substitution     मेरा नंबर 9947751598।
+  s0 phone+0dB    prisma-v2.5  pin-digits-s0-01       substitution     मेरा पिनकोड 357012 है।
+  s0 phone+10dB   prisma-v2.5  pin-digits-s0-06       length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  s0 phone+5dB    prisma-v2.5  pin-digits-s0-06       length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  s0 phone+0dB    prisma-v3.0  pin-digits-s0-06       substitution     मेरा पिन कोड 108693 है।
+  s0 phone+5dB    prisma-v3.0  pin-words-s0-01        substitution     मेरा पिन कोड 513175 है।
+  s0 phone+0dB    prisma-v2.5  pin-words-s0-01        substitution     मेरा पिनकोड 513175 है।
+  s0 phone+0dB    prisma-v3.0  pin-words-s0-01        substitution     मेरा पिन कोड 513175 है।
+  s0 phone+0dB    prisma-v3.0  acct-hinglish-s0-01    substitution     मेरा अकाउंट नंबर 16960278 है।
+  s0 phone+10dB   prisma-v2.5  acct-hinglish-s0-03    substitution     मेरा अकाउंट नंबर 17547073 है।
+  s0 phone+5dB    prisma-v2.5  acct-hinglish-s0-03    substitution     मेरा अकाउंट नंबर 17547073 है।
+  s0 phone+5dB    prisma-v3.0  acct-hinglish-s0-03    substitution     मेरा अकाउंट नंबर 17547073 है।
+  s0 phone+0dB    prisma-v2.5  acct-hinglish-s0-03    length_mismatch  मेरा अकाउंट नंबर 175470
+  s0 phone+0dB    prisma-v3.0  acct-hinglish-s0-05    substitution     मेरा अकाउंट नंबर 40089138 है।
+  s1 phone+0dB    prisma-v2.5  phone-digits-s1-01     substitution     मेरा नंबर 7914177793 है
+  s1 phone+0dB    prisma-v3.0  phone-digits-s1-01     length_mismatch  मेरा नंबर 794177793 है।
+  s1 phone+10dB   prisma-v3.0  phone-digits-s1-03     length_mismatch  मेरा नंबर 650008063 है।
+  s1 phone+5dB    prisma-v3.0  phone-digits-s1-03     length_mismatch  मेरा नंबर था 500080637।
+  s1 phone+0dB    prisma-v2.5  phone-digits-s1-03     length_mismatch  मेरा नंबर था 500080637
+  s1 phone+0dB    prisma-v3.0  phone-digits-s1-03     length_mismatch  मेरा नंबर था 500080637।
+  s1 phone+0dB    prisma-v3.0  phone-words-s1-01      length_mismatch  मेरा नंबर 673662585 है।
+  s1 phone+0dB    prisma-v3.0  phone-words-s1-03      substitution     मेरा नंबर 8899962283 है।
+  s1 phone+5dB    prisma-v3.0  phone-words-s1-05      length_mismatch  मेरा नंबर 94890682 आधार है।
+  s1 phone+0dB    prisma-v2.5  phone-words-s1-05      length_mismatch  मेरा नंबर 948906828 है।
+  s1 phone+0dB    prisma-v3.0  phone-words-s1-05      length_mismatch  मेरा नंबर 948906828 है।
+  s1 phone+5dB    prisma-v3.0  pin-words-s1-02        substitution     मेरा पिन कोड 575778 है।
+  s1 phone+0dB    prisma-v3.0  pin-words-s1-02        substitution     मेरा पिन कोड 575778 है।
+  s1 phone+10dB   prisma-v3.0  amount-words-s1-02     not_found        पचास लाख रुपये भेजना है।
+  s1 phone+5dB    prisma-v3.0  amount-words-s1-02     wrong_value      50 लाख रुपये भेजना है।
+  s1 phone+0dB    prisma-v3.0  amount-words-s1-02     wrong_value      50 लाख रुपये के लिए।
+  s1 phone+0dB    prisma-v3.0  amount-words-s1-05     wrong_value      1,000 रुपये भेजना है।
+  s1 phone+0dB    prisma-v3.0  acct-hinglish-s1-01    substitution     मेरा अकाउंट नंबर 23969378 है।
+  s1 phone+5dB    prisma-v3.0  acct-hinglish-s1-02    length_mismatch  मेरा अकाउंट नंबर 7487059 था।
+  s2 phone+0dB    prisma-v2.5  phone-digits-s2-01     substitution     मेरा नंबर 6115274939 है
+  s2 phone+0dB    prisma-v3.0  phone-digits-s2-01     length_mismatch  5274939
+  s2 phone+10dB   prisma-v2.5  phone-digits-s2-02     length_mismatch  मेरा नंबर हाँ 926685878 है
+  s2 phone+10dB   prisma-v3.0  phone-digits-s2-02     substitution     मेरा नंबर 6927685878 है।
+  s2 phone+5dB    prisma-v2.5  phone-digits-s2-02     length_mismatch  मेरा नंबर हाँ 927685878 है
+  s2 phone+5dB    prisma-v3.0  phone-digits-s2-02     length_mismatch  मेरा नंबर 927785878 है।
+  s2 phone+0dB    prisma-v2.5  phone-digits-s2-02     length_mismatch  मेरा नंबर 927785878 है
+  s2 phone+0dB    prisma-v3.0  phone-digits-s2-02     length_mismatch  मेरा नंबर 927785878 है।
+  s2 phone+0dB    prisma-v3.0  phone-digits-s2-03     substitution     मेरा नंबर 8005757782 है।
+  s2 phone+0dB    prisma-v3.0  phone-digits-s2-06     substitution     मेरा नंबर 8726783745 है।
+  s2 phone+10dB   prisma-v2.5  phone-words-s2-02      length_mismatch  मेरा नंबर 794744888 है।
+  s2 phone+10dB   prisma-v3.0  phone-words-s2-02      length_mismatch  मेरा नंबर 794744888 है।
+  s2 phone+5dB    prisma-v2.5  phone-words-s2-02      length_mismatch  मेरा नंबर 794744888 है।
+  s2 phone+5dB    prisma-v3.0  phone-words-s2-02      length_mismatch  मेरा नंबर 794744888 है।
+  s2 phone+0dB    prisma-v2.5  phone-words-s2-02      length_mismatch  मेरा नंबर 794744888 है।
+  s2 phone+0dB    prisma-v3.0  phone-words-s2-02      length_mismatch  मेरा नंबर 797744888 है।
+  s2 phone+0dB    prisma-v3.0  phone-words-s2-03      substitution     मेरा नंबर 9737859150 है।
+  s2 phone+0dB    prisma-v3.0  phone-words-s2-06      length_mismatch  मेरा नंबर 730110005 है।
+  s2 phone+10dB   prisma-v2.5  amount-symbol-s2-02    wrong_value      ₹20,000 भेजना है
+  s2 phone+5dB    prisma-v2.5  amount-symbol-s2-02    wrong_value      ₹20,000 भेजना है
+  s2 phone+0dB    prisma-v3.0  amount-symbol-s2-04    wrong_value      7,100 रुपये भेजना है।
+  s2 phone+0dB    prisma-v3.0  time-s2-02             not_found        कृपया best वक्त पर 45 minute पर call करें।
+  s2 phone+0dB    prisma-v2.5  acct-hinglish-s2-02    length_mismatch  मेरा अकाउंट नंबर 5 5 4 0 था 1 1 4
+  s2 phone+0dB    prisma-v3.0  acct-hinglish-s2-02    length_mismatch  मेरा अकाउंट नंबर 5540 था 114 है।
+
+API ERRORS (not counted as passes): 0
+
+saved 828 results to results/sweep3-multiseed.json
