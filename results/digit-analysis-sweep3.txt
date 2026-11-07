@@ -1,0 +1,52 @@
+digit-string clips analysed: 540   conditions: phone+10dB, phone+5dB, phone+0dB
+
+1. WHAT KIND OF EDITS
+                               prisma-v2.5     prisma-v3.0
+  clips                                270             270
+  failed clips                          20              36
+    only substitutions                   7              19
+    only missing digits                 10              10
+    mixed edits                          3               7
+  digits substituted                    11              30
+  digits missing                        18              21
+
+2. WHERE IN THE STRING  (digits substituted or missing, counted per expected position)
+  length 6            position   1   2   3   4   5   6
+    prisma-v2.5  n=108           0   0   1   2   3   2
+    prisma-v3.0  n=108           0   0   0   0   2   3
+  length 8            position   1   2   3   4   5   6   7   8
+    prisma-v2.5  n=54            0   0   0   0   1   0   3   1
+    prisma-v3.0  n=54            0   0   0   0   1   0   1   4
+  length 10            position   1   2   3   4   5   6   7   8   9  10
+    prisma-v2.5  n=108           5   1   0   2   1   1   3   0   2   1
+    prisma-v3.0  n=108           7   4   5   4   2   1   5   2   3   7
+
+  first / middle / last digit   (missing | substituted)
+    prisma-v2.5  first 5 | 0    middle 10 | 10    last 3 | 1
+    prisma-v3.0  first 6 | 1    middle 11 | 19    last 4 | 10
+
+3. MOST COMMON SUBSTITUTIONS (expected->heard), top 12
+  prisma-v2.5 (11 total): 6->7 x8  4->7 x2  6->9 x1
+  prisma-v3.0 (30 total): 6->7 x11  1->8 x8  4->7 x6  1->3 x1  6->9 x1  6->8 x1  4->8 x1  7->5 x1
+
+4. ERROR RATE BY EXPECTED DIGIT  (substituted or missing / times it was spoken)
+  prisma-v2.5 0:0/192  1:2/252  2:0/180  3:1/195  4:2/201  5:0/207  6:18/192  7:0/252  8:4/261  9:2/228
+  prisma-v3.0 0:0/192  1:14/252  2:0/180  3:0/195  4:7/201  5:0/207  6:23/192  7:1/252  8:6/261  9:0/228
+
+5. FAILED / TOTAL CLIPS BY STRING LENGTH, AND BY REPEATED ADJACENT DIGITS
+  prisma-v2.5 len 6: 4/108   len 8: 4/54   len 10: 12/108   has repeat: 11/123   no repeat: 9/147
+  prisma-v3.0 len 6: 5/108   len 8: 6/54   len 10: 25/108   has repeat: 24/123   no repeat: 12/147
+
+6. FILLER WORDS INSIDE THE DIGITS (failed clips)
+  prisma-v2.5  1/20 failed clips   था x1
+  prisma-v3.0  2/36 failed clips   था x2
+
+7. SAME WRONG DIGITS REPEATED (>= 3 failed results with the identical heard string)
+  s2 phone-words-s2-02      expected 7947448888  heard 794744888  x5  models 2  [phone+0dB, phone+10dB, phone+5dB]
+  s0 pin-words-s0-01        expected 513145  heard 513175  x3  models 2  [phone+0dB, phone+5dB]
+  s0 acct-hinglish-s0-03    expected 17547063  heard 17547073  x3  models 2  [phone+10dB, phone+5dB]
+  s1 phone-digits-s1-03     expected 6500080636  heard 500080637  x3  models 2  [phone+0dB, phone+5dB]
+  s2 phone-digits-s2-02     expected 6926685878  heard 927785878  x3  models 2  [phone+0dB, phone+5dB]
+
+8. FAILURES WITHOUT NOISE (clean, phone, phone+20dB)
+  this file has no clean/phone/20dB records, so TTS faults cannot be separated yet
