@@ -18,7 +18,7 @@ PLAN = [
     ("phone-digits", 6), ("phone-words", 6),
     ("pin-digits", 6), ("pin-words", 6),
     ("amount-symbol", 5), ("amount-words", 5),
-    ("time", 6),
+    ("time", 6), ("acct-hinglish", 6)
 ]
 
 def indian_commas(n):
@@ -94,4 +94,7 @@ def generate(seed=0):
             elif variant == "time":
                 expected, sentence = _time(rng)
                 cases.append((name, "time", expected, sentence))
+            elif variant == "acct-hinglish":
+                p = _digits(rng, 8, "123456789")
+                cases.append((name, "digits", p, f"मेरा account number {p[:4]} {p[4:]} है"))
     return cases

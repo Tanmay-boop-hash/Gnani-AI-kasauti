@@ -185,6 +185,66 @@ Both set `timeout=60` so the program doesn't hang forever if the server stops an
 
 **Note:** `transcribe` returns only the text. The response also contains `request_id` and `model`, which we currently throw away. The `model` field could help us notice when Gnani updates its model (see TODO.md).
 
+** `Results of the run after implementing the seeded generator` **
+condition      prisma-v2.5   prisma-v3.0
+clean                40/40         39/40
+phone                40/40         40/40
+phone+20dB           40/40         40/40
+phone+10dB           39/40         40/40
+phone+5dB            39/40         39/40
+phone+0dB            36/40         32/40
+
+HOW THEY FAILED (condition, model, kind: count)
+  clean        prisma-v3.0  not_found        1
+  phone+0dB    prisma-v2.5  length_mismatch  1
+  phone+0dB    prisma-v2.5  substitution     3
+  phone+0dB    prisma-v3.0  length_mismatch  1
+  phone+0dB    prisma-v3.0  substitution     7
+  phone+10dB   prisma-v2.5  length_mismatch  1
+  phone+5dB    prisma-v2.5  length_mismatch  1
+  phone+5dB    prisma-v3.0  substitution     1
+
+FIRST 20 FAILURES
+  phone+0dB    prisma-v2.5  phone-digits-s0-01 substitution     मेरा नंबर 9704876475 है
+  phone+0dB    prisma-v3.0  phone-digits-s0-01 substitution     मेरा नंबर 9704876475 है।
+  phone+0dB    prisma-v3.0  phone-digits-s0-04 substitution     मेरा नंबर 8938778708 है।
+  phone+0dB    prisma-v2.5  phone-digits-s0-05 length_mismatch  मेरा नंबर था 160975351
+  phone+0dB    prisma-v3.0  phone-digits-s0-05 length_mismatch  मेरा नंबर था 1 था 0975351।
+  phone+0dB    prisma-v3.0  phone-words-s0-02 substitution     मेरा नंबर 8789659342 है।
+  phone+0dB    prisma-v3.0  phone-words-s0-03 substitution     मेरा नंबर 7209478122 है।
+  phone+0dB    prisma-v3.0  phone-words-s0-05 substitution     मेरा नंबर 9947751598।
+  phone+0dB    prisma-v2.5  pin-digits-s0-01 substitution     मेरा पिनकोड 357012 है।
+  phone+10dB   prisma-v2.5  pin-digits-s0-06 length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  phone+5dB    prisma-v2.5  pin-digits-s0-06 length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  phone+0dB    prisma-v3.0  pin-digits-s0-06 substitution     मेरा पिन कोड 108693 है।
+  phone+5dB    prisma-v3.0  pin-words-s0-01 substitution     मेरा पिन कोड 513175 है।
+  phone+0dB    prisma-v2.5  pin-words-s0-01 substitution     मेरा पिनकोड 513175 है।
+  phone+0dB    prisma-v3.0  pin-words-s0-01 substitution     मेरा पिन कोड 513175 है।
+  clean        prisma-v3.0  time-s0-02     not_found        शाम सात बजकर चालीस मिनट पर कॉल करना।
+
+
+- Real: both models are solid on phone-quality audio down to 5 dB. Failures at 0 dB are almost all digit strings (phone and PIN). Amounts and times never failed under noise.
+- Suggestive, not proven: v3.0 did worse than v2.5 at 0 dB (32 vs 36), and Sweep 1 pointed the same way (5/10 vs 8/10). But 4 sentences out of 40 on one noise seed has a wide margin: at n=40, 90% vs 80% could easily be luck. The multi-seed run is what decides this.
+- Correlated failures: pin-digits-s0-06 failed identically for v2.5 at 10 and 5 dB, and pin-words-s0-01 produced the same wrong PIN (513175) in both models. Same seed means same noise pattern, so the effective sample is smaller than the raw counts.
+- The one clean failure is not a hearing error: v3.0 heard शाम सात बजकर चालीस मिनट correctly but wrote the numbers as words, so my comparer said not_found. That is a comparer limitation (step 5), so v3.0’s clean score is really 40/40.
+- Don’t headline Sweep 1’s patterns yet: the 4→7 substitution and the dropped last digit barely showed up here. The notable failures this time were phone-digits-s0-05 (leading digits lost) and a garbled word (खना) in place of a digit. Wait for the digit-level analysis before claiming any pattern.
+
+- **`findings`**: the table above, with “one seed, 40 sentences, white noise only; v2.5 vs v3.0 gap at 0 dB not conclusive”
+- **`concepts`**: “not_found on clean v3.0 time was words-instead-of-digits (a format miss). Same-seed failures are correlated across SNR levels, and across models.”
+
+- rng means random number generator - an object that supplies random values. created using random.Random(seed) and passes it to helpers such as _digits and _time. Passing the same seed makes the generated cases repeatable.
+
+- A leading underscore in a function name like `_digits` usually means `internal helper`, its meant to be used inside the module, its a python naming convention. In generate.py, the helpers like `_digits`, `_amount` and `_time` support the main `generate()` function. 
+
+- adding a variant at the end of PLAN keeps the earlier sentences, and their cache, unchanged
+
+- findings: add the 46-sentence table (clean 46/45, phone 46/46, 20 dB 46/46, 10 dB 44/46, 5 dB 44/44, 0 dB 41/36). Note v3.0’s clean miss is the words-instead-of-digits time, so its real clean score is 46/46.
+
+## **Concepts** (from upgraded generate and added time and hinglish cases)
+- Both models often make the identical mistake on the same noisy clip. pin-words-s0-01 came back as 513175 for v3.0 at 5 dB and for both models at 0 dB. acct-hinglish-s0-03 came back as 17547073 for v2.5 at 10 and 5 dB and for v3.0 at 5 dB. Clean audio passed, so TTS said it correctly. The noise masked a digit, and both models guessed the same wrong one. This is consistent with “the damage is in the audio”, but I haven’t proven it. Listening to those files (known issue #2) would test it.
+- Every noise failure is a digit string (phone, PIN, account). Amounts (10 sentences) and times (6) never failed under noise. A hypothesis, untested: “five lakh rupees” is a common phrase the model can guess from context, while random digits have nothing to guess from.
+- Ranking, three runs: v3.0 is behind at 0 dB by raw counts every time (5/10 vs 8/10, 32/40 vs 36/40, 36/46 vs 41/46). These are not three independent confirmations, because the 46 contains the 40 and the noise seed is the same. A 5-sentence gap on 46 is within what chance could produce, though I haven’t run a formal test. At 0 dB, 9 of v3.0’s 10 failures are substitutions (a full-length but wrong string), against 3 of v2.5’s 5. That is suggestive only; the digit-level analysis will show whether it’s real.
+
 ---
 
 ## 3. Bugs encountered
@@ -210,6 +270,7 @@ None yet. Template for later:
 - **The core idea already has prior art.** Searching only after designing the project showed commercial tools and research papers on similar ideas (PROJECT.md section 6). Lesson: check prior art early, and state how your work differs.
 - **A pytest import gotcha.** Plain `pytest` failed with `ModuleNotFoundError: No module named 'voicetest'` because the project root was not on Python's import path. Fix: a `pytest.ini` containing `pythonpath = .` (or run `python -m pytest`). Lesson: tests that cannot import your code are a path problem, not a code problem.
 - **We tested against a model version we did not choose.** Prisma v3.0 launched mid-project and is opt-in, so every earlier call ran on the default. Lesson: pin and record the model on every call.
+- **Left out compare_time because every generated time sentence is in words** (शाम सात बजकर चालीस मिनट), and compare_time can’t parse Hindi number words. That is exactly why v3.0’s clean time-s0-02 came back not_found in the sweep. The test filter also skips phone-words, pin-words and amount-words for the same reason.
 
 ---
 

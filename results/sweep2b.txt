@@ -1,0 +1,90 @@
+phone-digits-s0-01
+phone-digits-s0-02
+phone-digits-s0-03
+phone-digits-s0-04
+phone-digits-s0-05
+phone-digits-s0-06
+phone-words-s0-01
+phone-words-s0-02
+phone-words-s0-03
+phone-words-s0-04
+phone-words-s0-05
+phone-words-s0-06
+pin-digits-s0-01
+pin-digits-s0-02
+pin-digits-s0-03
+pin-digits-s0-04
+pin-digits-s0-05
+pin-digits-s0-06
+pin-words-s0-01
+pin-words-s0-02
+pin-words-s0-03
+pin-words-s0-04
+pin-words-s0-05
+pin-words-s0-06
+amount-symbol-s0-01
+amount-symbol-s0-02
+amount-symbol-s0-03
+amount-symbol-s0-04
+amount-symbol-s0-05
+amount-words-s0-01
+amount-words-s0-02
+amount-words-s0-03
+amount-words-s0-04
+amount-words-s0-05
+time-s0-01
+time-s0-02
+time-s0-03
+time-s0-04
+time-s0-05
+time-s0-06
+acct-hinglish-s0-01
+acct-hinglish-s0-02
+acct-hinglish-s0-03
+acct-hinglish-s0-04
+acct-hinglish-s0-05
+acct-hinglish-s0-06
+
+condition      prisma-v2.5   prisma-v3.0
+clean                46/46         45/46
+phone                46/46         46/46
+phone+20dB           46/46         46/46
+phone+10dB           44/46         46/46
+phone+5dB            44/46         44/46
+phone+0dB            41/46         36/46
+
+HOW THEY FAILED (condition, model, kind: count)
+  clean        prisma-v3.0  not_found        1
+  phone+0dB    prisma-v2.5  length_mismatch  2
+  phone+0dB    prisma-v2.5  substitution     3
+  phone+0dB    prisma-v3.0  length_mismatch  1
+  phone+0dB    prisma-v3.0  substitution     9
+  phone+10dB   prisma-v2.5  length_mismatch  1
+  phone+10dB   prisma-v2.5  substitution     1
+  phone+5dB    prisma-v2.5  length_mismatch  1
+  phone+5dB    prisma-v2.5  substitution     1
+  phone+5dB    prisma-v3.0  substitution     2
+
+FIRST 20 FAILURES
+  phone+0dB    prisma-v2.5  phone-digits-s0-01 substitution     मेरा नंबर 9704876475 है
+  phone+0dB    prisma-v3.0  phone-digits-s0-01 substitution     मेरा नंबर 9704876475 है।
+  phone+0dB    prisma-v3.0  phone-digits-s0-04 substitution     मेरा नंबर 8938778708 है।
+  phone+0dB    prisma-v2.5  phone-digits-s0-05 length_mismatch  मेरा नंबर था 160975351
+  phone+0dB    prisma-v3.0  phone-digits-s0-05 length_mismatch  मेरा नंबर था 1 था 0975351।
+  phone+0dB    prisma-v3.0  phone-words-s0-02 substitution     मेरा नंबर 8789659342 है।
+  phone+0dB    prisma-v3.0  phone-words-s0-03 substitution     मेरा नंबर 7209478122 है।
+  phone+0dB    prisma-v3.0  phone-words-s0-05 substitution     मेरा नंबर 9947751598।
+  phone+0dB    prisma-v2.5  pin-digits-s0-01 substitution     मेरा पिनकोड 357012 है।
+  phone+10dB   prisma-v2.5  pin-digits-s0-06 length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  phone+5dB    prisma-v2.5  pin-digits-s0-06 length_mismatch  मेरा पिन कोड 1 0 8 खना एक है।
+  phone+0dB    prisma-v3.0  pin-digits-s0-06 substitution     मेरा पिन कोड 108693 है।
+  phone+5dB    prisma-v3.0  pin-words-s0-01 substitution     मेरा पिन कोड 513175 है।
+  phone+0dB    prisma-v2.5  pin-words-s0-01 substitution     मेरा पिनकोड 513175 है।
+  phone+0dB    prisma-v3.0  pin-words-s0-01 substitution     मेरा पिन कोड 513175 है।
+  clean        prisma-v3.0  time-s0-02     not_found        शाम सात बजकर चालीस मिनट पर कॉल करना।
+  phone+0dB    prisma-v3.0  acct-hinglish-s0-01 substitution     मेरा अकाउंट नंबर 16960278 है।
+  phone+10dB   prisma-v2.5  acct-hinglish-s0-03 substitution     मेरा अकाउंट नंबर 17547073 है।
+  phone+5dB    prisma-v2.5  acct-hinglish-s0-03 substitution     मेरा अकाउंट नंबर 17547073 है।
+  phone+5dB    prisma-v3.0  acct-hinglish-s0-03 substitution     मेरा अकाउंट नंबर 17547073 है।
+
+API ERRORS (not counted as passes): 0

@@ -43,6 +43,9 @@
 | Mon 9 Nov | Submission form | Submitted by Monday night |
 | Tue 10 Nov | Emergencies only | |
 
+
+- **On 7Nov 2026** : Hinglish variant added to generator; hand-written cases are no longer in the sweep
+
 **Cut order if time shrinks:** GitHub Actions, real-clip comparison, latency measurement. Keep generator, degrader, runner, report, one v2.5-vs-v3.0 finding.
 
 **Before final submission:** delete `01_stt_hello.py` and `02_tts_hello.py`; add a "Prior work" section to the README based on PROJECT.md section 6.
