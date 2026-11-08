@@ -87,7 +87,7 @@ def run(cases, seed, conditions, records, errors):
                     seed=seed, name=name, entity=entity_of(name), kind=kind,
                     condition=label, model=model, ok=bool(result.ok), failure=result.kind,
                     expected=result.expected, extracted=result.heard,
-                    transcript=reply["transcript"],
+                    style=result.style, transcript=reply["transcript"],
                 ))
 
 def report(records, errors, conditions):
@@ -116,6 +116,12 @@ def report(records, errors, conditions):
     for ent in sorted({r["entity"] for r in records}):
         print(f"  {ent:16}" + "".join(
             f"{str(ent_fail[(ent, m)]) + '/' + str(ent_total[(ent, m)]):>14}" for m in MODELS))
+
+    print("\nHOW THE ENTITY WAS WRITTEN (kind, style: count per model; all records, passes and failures)")
+    styles = Counter((r["kind"], r.get("style", "digits"), r["model"]) for r in records)
+    print(f"  {'kind / style':20}" + "".join(f"{m:>14}" for m in MODELS))
+    for kind, style in sorted({(k, s) for k, s, _ in styles}):
+        print(f"  {kind + ' / ' + style:20}" + "".join(f"{styles[(kind, style, m)]:>14}" for m in MODELS))
 
     pairs = defaultdict(dict)       # (seed, sentence, condition) -> {model: ok}
     for r in records:
