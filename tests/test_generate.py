@@ -9,9 +9,9 @@ def test_different_seed_differs():
 
 def test_size_kinds_and_unique_names():
     cases = generate(0)
-    assert len(cases) == 46
+    assert len(cases) == 52
     assert {c[1] for c in cases} == {"digits", "amount", "time"}
-    assert len({c[0] for c in cases}) == 46
+    assert len({c[0] for c in cases}) == len(cases) 
 
 def test_phone_and_pin_shapes():
     for name, kind, expected, _ in generate(3):

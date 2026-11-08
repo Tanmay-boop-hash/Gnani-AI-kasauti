@@ -13,12 +13,13 @@ MINUTE_WORDS = {5: "पाँच", 10: "दस", 15: "पंद्रह", 20: "
                 30: "तीस", 40: "चालीस", 45: "पैंतालीस", 50: "पचास"}
 
 
-# (variant, how many) -> 40 sentences total
+# (variant, how many) -> 52 sentences total
 PLAN = [
     ("phone-digits", 6), ("phone-words", 6),
     ("pin-digits", 6), ("pin-words", 6),
     ("amount-symbol", 5), ("amount-words", 5),
-    ("time", 6), ("acct-hinglish", 6)
+    ("time", 6), ("acct-hinglish", 6),
+    ("time-modifier", 6),          # appended at the END so earlier sentences (and their cache) never change
 ]
 
 def indian_commas(n):
@@ -66,6 +67,27 @@ def _time(rng):
     return (h24, m), sentence
 
 
+MODIFIER_FORMS = ["saadhe", "sava", "paune", "dedh", "dhai"]
+
+def _time_modifier(rng, i):
+    """साढ़े / सवा / पौने / डेढ़ / ढाई forms. The form cycles with i, so every form appears
+    in every seed; only the period and the hour are random. returns ((hour24, minute), sentence)"""
+    form = MODIFIER_FORMS[(i - 1) % len(MODIFIER_FORMS)]
+    if form == "dedh":
+        return (13, 30), "दोपहर डेढ़ बजे मिलते हैं"
+    if form == "dhai":
+        return (14, 30), "दोपहर ढाई बजे मिलते हैं"
+    if rng.random() < 0.5:
+        period, h, shift = "सुबह", rng.randint(7, 11), 0
+    else:
+        period, h, shift = "शाम", rng.randint(5, 9), 12
+    if form == "saadhe":
+        return (h + shift, 30), f"{period} साढ़े {NUM_WORDS[h]} बजे मिलते हैं"
+    if form == "sava":
+        return (h + shift, 15), f"{period} सवा {NUM_WORDS[h]} बजे मिलते हैं"
+    return (h - 1 + shift, 45), f"{period} पौने {NUM_WORDS[h]} बजे मिलते हैं"   # पौने दस = 9:45
+
+
 def generate(seed=0):
     """Same seed -> exactly the same list of (name, kind, expected, sentence)."""
     rng = random.Random(seed)
@@ -93,6 +115,9 @@ def generate(seed=0):
                 cases.append((name, "amount", value, f"{words} रुपये भेजना है"))
             elif variant == "time":
                 expected, sentence = _time(rng)
+                cases.append((name, "time", expected, sentence))
+            elif variant == "time-modifier":
+                expected, sentence = _time_modifier(rng, i)
                 cases.append((name, "time", expected, sentence))
             elif variant == "acct-hinglish":
                 p = _digits(rng, 8, "123456789")

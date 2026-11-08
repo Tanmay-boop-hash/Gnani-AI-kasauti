@@ -11,7 +11,10 @@ import unicodedata
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from voicetest.cases import CASES as HAND_CASES
 from voicetest.compare import normalize
+from voicetest.generate import generate
+from voicetest.hindi_numbers import canon, tokenize
 
 NOISY = ["phone+10dB", "phone+5dB", "phone+0dB"]
 NO_NOISE = ["clean", "phone", "phone+20dB"]      # failures here point at TTS or the comparer
@@ -31,6 +34,69 @@ def fillers_in_digit_span(transcript):
     return [tok for tok in tokens 
             if not any(c.isdigit() for c in tok)
             and any(unicodedata.category(c)[0] in "LM" for c in tok)]
+
+# words that mean the same thing in a transcript, e.g. the model may write "number" as "नंबर"
+_EQUIV = [{canon(w) for w in g} for g in (("नंबर", "नम्बर", "number"), ("कोड", "code"), ("है", "हैं"))]
+
+def _same_word(a, b):
+    return a == b or any(a in g and b in g for g in _EQUIV)
+
+def _carrier_words(carrier):
+    """(words before the digits, words after the digits) of the sentence we asked Timbre to speak."""
+    toks = tokenize(carrier)
+    nums = [i for i, t in enumerate(toks) if t.kind == "num"]
+    if not nums:
+        return None
+    before = [t.word for t in toks[:nums[0]] if t.kind == "word"]
+    after = [t.word for t in toks[nums[-1] + 1:] if t.kind == "word"]
+    return before, after
+
+def fillers_vs_carrier(transcript, carrier):
+    """Words the model added around or inside the digits: [(word, where)], where = before | inside | after.
+
+    The digit zone of the transcript starts after the last carrier word (नंबर / कोड / number) found
+    before the first digit, and ends at the first closing carrier word (है) after the last digit.
+    Anything in that zone that is not a digit, not a number word and not a carrier word is a filler.
+    Words come back in folded spelling (हाँ is shown as हां). Returns None when the zone cannot be located (no digits in the transcript, or none of the
+    carrier's opening words found), because guessing there would count transliterations as fillers."""
+    cw = _carrier_words(carrier)
+    if cw is None:
+        return None
+    before, after = cw
+    toks = tokenize(transcript)
+    nums = [i for i, t in enumerate(toks) if t.kind == "num"]
+    if not nums:
+        return None
+    opening = [i for i, t in enumerate(toks[:nums[0]])
+               if t.kind == "word" and any(_same_word(t.word, w) for w in before)]
+    if not opening:
+        return None
+    start = opening[-1] + 1
+    end = len(toks)
+    for i in range(nums[-1] + 1, len(toks)):
+        if toks[i].kind == "word" and any(_same_word(toks[i].word, w) for w in after):
+            end = i
+            break
+    zone = [i for i in nums if start <= i < end]
+    if not zone:
+        return None
+    known = set(before) | set(after)
+    known |= {"".join(before[i:j]) for i in range(len(before)) for j in range(i + 2, len(before) + 1)}  # पिनकोड
+    out = []
+    for i in range(start, end):
+        t = toks[i]
+        if t.kind == "word" and t.word not in known:
+            out.append((t.word, "before" if i < zone[0] else "after" if i > zone[-1] else "inside"))
+    return out
+
+def carrier_table(records):
+    """sentence name -> the sentence we asked Timbre to speak (rebuilt from the generator)."""
+    table = {name: text for name, _, _, text in HAND_CASES}
+    for seed in {r["seed"] for r in records}:
+        for name, _, _, text in generate(seed):
+            table[name] = text
+    return table
+
 
 def align(expected, heard):
     """Minimum-edit alignment of two digit strings.
@@ -161,13 +227,33 @@ def report(records, conditions, top):
         print(f"  {m:12}" + "   ".join(parts))
 
     # 6. filler words
-    print("\n6. FILLER WORDS INSIDE THE DIGITS (failed clips)")
+    print("\n6. FILLER WORDS (words in the transcript that are not digits and not in the spoken sentence,"
+          "\n   looked for from just after नंबर/कोड up to the closing है, so words BEFORE the first digit count)")
+    carriers = carrier_table(use)
     for m in models:
-        failed = [r for r in use if r["model"] == m and not r["ok"]]
-        words = Counter(w for r in failed for w in fillers_in_digit_span(r["transcript"]))
-        with_f = sum(bool(fillers_in_digit_span(r["transcript"])) for r in failed)
-        print(f"  {m:12} {with_f}/{len(failed)} failed clips   "
-              + "  ".join(f"{w} x{n}" for w, n in words.most_common(top)))
+        rows = [r for r in use if r["model"] == m]
+        stat = Counter()
+        where = Counter()
+        words = Counter()
+        for r in rows:
+            if r["name"] not in carriers:
+                stat["sentence unknown"] += 1
+                continue
+            f = fillers_vs_carrier(r["transcript"], carriers[r["name"]])
+            if f is None:
+                stat["zone not found"] += 1
+                continue
+            key = "failed" if not r["ok"] else "passed"
+            stat[key + " usable"] += 1
+            if f:
+                stat[key + " with filler"] += 1
+                words.update(w for w, _ in f)
+                where.update(wh for _, wh in f)
+        print(f"  {m:12} failed clips with filler {stat['failed with filler']}/{stat['failed usable']}"
+              f"   passed clips with filler {stat['passed with filler']}/{stat['passed usable']}"
+              f"   (not judged: zone not found {stat['zone not found']}, sentence unknown {stat['sentence unknown']})")
+        print(f"  {'':12} where: before {where['before']}  inside {where['inside']}  after {where['after']}"
+              f"     words: " + "  ".join(f"{w} x{n}" for w, n in words.most_common(top)))
 
     # 7. same wrong answer repeated
     print("\n7. SAME WRONG DIGITS REPEATED (>= 3 failed results with the identical heard string)")
