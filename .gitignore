@@ -5,6 +5,10 @@
 *.pyc
 .venv/
 *.m4a
+*.mp4
+*.mov
+create_ambient_bed.py
+.DS_Store
 .DS_Store/
 .vscode/
 te.py
