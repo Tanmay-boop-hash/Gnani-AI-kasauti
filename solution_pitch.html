@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kasauti — Solution Pitch</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+    :root {
+      --bg: #ffffff;
+      --card-bg: #f8f9fa;
+      --card-border: #e2e4e8;
+      --text: #1a1a1e;
+      --mute: #585860;
+      --blue: #0b63ce;
+      --blue-bg: #eff6ff;
+      --green: #15803d;
+      --green-bg: #f0fdf4;
+      --red: #b91c1c;
+      --orange: #c2410c;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.35;
+      font-size: 9.5pt;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .header-left h1 {
+      font-size: 19pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-left h1 .indic {
+      font-weight: 500;
+      color: var(--blue);
+      font-size: 15pt;
+    }
+    .header-left .tagline {
+      font-size: 9.5pt;
+      font-weight: 600;
+      color: var(--mute);
+      margin-top: 2px;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 8.5pt;
+      color: var(--mute);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 8pt;
+      font-weight: 700;
+      background: var(--blue-bg);
+      color: var(--blue);
+      border: 1px solid #bfdbfe;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+    .section-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    h2 {
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0f172a;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 11px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+    p, li {
+      color: #334155;
+      font-size: 9pt;
+    }
+    ul {
+      padding-left: 14px;
+      margin-top: 3px;
+    }
+    li {
+      margin-bottom: 2px;
+    }
+    li strong {
+      color: #0f172a;
+    }
+    .flow-container {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 7px 10px;
+      margin: 8px 0;
+      text-align: center;
+    }
+    .flow-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
+      font-size: 8pt;
+      font-family: var(--mono);
+      font-weight: 600;
+    }
+    .flow-step {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      padding: 4px 6px;
+      flex: 1;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .flow-step .title {
+      color: var(--blue);
+      display: block;
+      font-size: 7.5pt;
+      text-transform: uppercase;
+    }
+    .flow-step .desc {
+      color: #1e293b;
+      font-size: 8pt;
+    }
+    .flow-arrow {
+      color: #64748b;
+      font-weight: bold;
+      font-size: 10pt;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+      font-size: 8.5pt;
+    }
+    th, td {
+      border: 1px solid var(--card-border);
+      padding: 4px 7px;
+      text-align: left;
+    }
+    th {
+      background: #e2e8f0;
+      color: #1e293b;
+      font-weight: 700;
+    }
+    td.num {
+      text-align: right;
+      font-family: var(--mono);
+      font-weight: 600;
+    }
+    .pass {
+      color: var(--green);
+      font-weight: bold;
+    }
+    .fail {
+      color: var(--red);
+      font-weight: bold;
+    }
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .metric-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      text-align: center;
+    }
+    .metric-val {
+      font-size: 13pt;
+      font-weight: 800;
+      font-family: var(--mono);
+      color: var(--blue);
+    }
+    .metric-lbl {
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-top: 1px;
+    }
+    footer {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid var(--card-border);
+      font-size: 8pt;
+      color: var(--mute);
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <h1>Kasauti <span class="indic">(कसौटी)</span></h1>
+      <div class="tagline">An Automated Regression Test Harness &amp; Benchmark for Indic Voice AI</div>
+    </div>
+    <div class="header-right">
+      <span class="badge">Gnani.ai Internship Challenge</span><br>
+      <strong>Tanmay Sonkar</strong> &bull; Nov 2026
+    </div>
+  </header>
+
+  <!-- Problem & Solution Grid -->
+  <div class="grid-2">
+    <div class="section-box">
+      <h2>The Challenge: The Telecom Reality</h2>
+      <ul>
+        <li><strong>Acoustic Degradation:</strong> Indian voice agents operate over 8 kHz band-limited, lossy telephony networks with heavy traffic, babble, and carrier compression.</li>
+        <li><strong>Standard Metrics Fail:</strong> Word Error Rate (WER) treats valid orthographic variations (e.g., <em>"₹5 लाख"</em> vs <em>"5,00,000 रुपये"</em>) as outright errors.</li>
+        <li><strong>Manual QA Bottleneck:</strong> Recording, crowdsourcing, and annotating test calls takes weeks, costs thousands, and cannot easily re-test new model checkpoints.</li>
+      </ul>
+    </div>
+
+    <div class="section-box">
+      <h2>The Solution: Closed-Loop Kasauti</h2>
+      <ul>
+        <li><strong>Synthetic Ground Truth:</strong> Synthesizes seed sentences containing known phone numbers, PINs, rupee amounts, and timestamps using Gnani's <strong>Timbre TTS</strong>.</li>
+        <li><strong>PSTN Channel Emulation:</strong> Degrades audio through 300–3,400 Hz filtering, 8 kHz downsampling, G.711 &mu;-law quantization, and calibrated noise (20 dB down to 0 dB).</li>
+        <li><strong>Semantic Value Scorer:</strong> Normalizes Indic numeric ASTs to judge exact business meaning rather than superficial spelling.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Architecture Flow -->
+  <div class="flow-container">
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="title">1. Ground Truth</span>
+        <span class="desc">Seeded Entities</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="title">2. Synthesis</span>
+        <span class="desc">Timbre TTS v3.0</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="title">3. Channel DSP</span>
+        <span class="desc">8 kHz &mu;-law &bull; 0 dB</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="title">4. Recognition</span>
+        <span class="desc">Prisma v2.5 / v3.0</span>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-step">
+        <span class="title">5. Evaluation</span>
+        <span class="desc">Semantic Judge</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Benchmarks and Discoveries Grid -->
+  <div class="grid-2">
+    <div class="section-box">
+      <h2>Experimental Results (156 Clips &times; 6 Conditions)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Condition</th>
+            <th>Prisma v2.5</th>
+            <th>Prisma v3.0</th>
+            <th>Finding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Clean Audio</td>
+            <td class="num">155 / 156</td>
+            <td class="num">153 / 156</td>
+            <td>Identical failure traced to TTS defect</td>
+          </tr>
+          <tr>
+            <td>Phone Line (8 kHz &mu;-law)</td>
+            <td class="num">155 / 156</td>
+            <td class="num">154 / 156</td>
+            <td>Bandwidth compression alone has 0% loss</td>
+          </tr>
+          <tr>
+            <td>Phone + 10 dB Noise</td>
+            <td class="num">151 / 156</td>
+            <td class="num">153 / 156</td>
+            <td>Parity performance (p = 0.625)</td>
+          </tr>
+          <tr>
+            <td>Phone + 0 dB (Severe)</td>
+            <td class="num pass">144 / 156</td>
+            <td class="num fail">125 / 156</td>
+            <td><strong>v2.5 outperforms v3.0 (p &lt; 0.001)</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-box">
+      <h2>Key Engineering Discoveries</h2>
+      <ul>
+        <li><strong>The 0 dB Noise Cliff:</strong> Prisma v3.0 experiences heavy digit substitutions under intense noise (turning 1 into 8), whereas v2.5 preserves sequence length.</li>
+        <li><strong>Attribution Isolation:</strong> Identified a clean-audio bug in Timbre TTS where digit 8 was repeated 3 times instead of 4, proving STT was blameless.</li>
+        <li><strong>Fragility Breakdown:</strong> 82% of all failures occur in digit strings (phones/PINs); currency amounts and times are reinforced by surrounding context.</li>
+        <li><strong>Hallucination Detection:</strong> Caught low-SNR acoustic stress triggering models to hallucinate phantom tokens (predominantly <em>"था"</em>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Business Impact & Architecture Stats -->
+  <div class="section-box">
+    <h2>Production Feasibility &amp; Developer Velocity</h2>
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-val">100%</div>
+        <div class="metric-lbl">Synthetic Ground Truth</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">&#8377;0.00</div>
+        <div class="metric-lbl">Deterministic Cache Re-Runs</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">146 / 146</div>
+        <div class="metric-lbl">Offline Unit Tests (1.1s)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">p &lt; 0.001</div>
+        <div class="metric-lbl">Paired Exact Sign Test</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>GitHub Repository: <strong>github.com/Tanmaysonkar/gnani-ai</strong></span>
+    <span>Live HTML Audit Report: <code>results/report.html</code> &bull; Demo Video: 2m 32s</span>
+  </footer>
+
+</body>
+</html>

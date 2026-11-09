@@ -6,6 +6,8 @@ https://github.com/user-attachments/assets/cf9e1e0c-b499-4e5f-ad70-15ba320ad7e8
 
 # Gnani.ai-kasauti
 
+> 📄 **[Download 1-Page Solution Pitch (PDF)](Kasauti_Solution_Pitch.pdf)** &bull; 📖 **[Read Solution Pitch (Markdown)](SOLUTION_PITCH.md)** &bull; 📊 **[Interactive HTML Report](results/report.html)**
+
 *kasauti* = touchstone. A regression test for Indian-language voice AI.
 
 It makes Gnani's **Timbre** TTS speak sentences containing **known** phone numbers, PINs, rupee amounts and times, damages the audio like a bad phone call (noise, 8 kHz, mu-law), sends it to Gnani's **Prisma** STT, and scores whether each entity survived. Because the right answer is known, no manual labelling is needed, and any model version can be re-tested the same way.
