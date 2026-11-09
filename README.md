@@ -6,7 +6,9 @@ https://github.com/user-attachments/assets/cf9e1e0c-b499-4e5f-ad70-15ba320ad7e8
 
 # Gnani.ai-kasauti
 
-> 📄 **[Download 1-Page Solution Pitch (PDF)](Kasauti_Solution_Pitch.pdf)** &bull; 📖 **[Read Solution Pitch (Markdown)](SOLUTION_PITCH.md)** &bull; 📊 **[Interactive HTML Report](results/report.html)**
+> 📄 **[Download 1-Page Solution Pitch (PDF)](Kasauti_Solution_Pitch.pdf)** &bull;
+> 📖 **[Read Solution Pitch (Markdown)](SOLUTION_PITCH.md)** &bull;
+> 📊 **[Interactive HTML Report](results/report.html)**
 
 *kasauti* = touchstone. A regression test for Indian-language voice AI.
 
