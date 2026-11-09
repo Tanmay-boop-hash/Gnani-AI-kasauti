@@ -1,3 +1,9 @@
+
+
+https://github.com/user-attachments/assets/cf9e1e0c-b499-4e5f-ad70-15ba320ad7e8
+
+
+
 # Gnani.ai-kasauti
 
 *kasauti* = touchstone. A regression test for Indian-language voice AI.
